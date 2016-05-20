@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+    <script type="text/javascript">
+        function f1(){
+            $('#yun').after('<li>黄忠</li>');
+            $('#yun').before('<li>诸葛亮</li>');
+            $('#shu li:first').after($('#xiang'));
+
+            $('<li>马超</li>').insertAfter($('#fei'));
+            $('<li>司马懿</li>').insertBefore($('#fei'));
+            $('#wu li:first').insertBefore($('#bei'))
+        }
+    </script>
+</head>
+<body>
+    <h2>简单事件操作</h2>
+    <ul id="shu">
+        <li id="bei">刘备</li>
+        <li id="fei">张飞</li>
+        <li id="yun">赵云</li>
+        <li>关羽</li>
+    </ul>
+    <ul id="wu">
+        <li>孙权</li>
+        <li>周瑜</li>
+        <li id="xiang">孙尚香</li>
+    </ul>
+    <input type="button" value="追加" onclick="f1()">
+</body>
+</html>

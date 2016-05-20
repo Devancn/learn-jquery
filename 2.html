@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+    <script type="text/javascript">
+        //1)$(document).ready(function(){});
+        $(document).ready(function(){
+            //具体加载事件实现
+            alert(1234);
+        });
+        //2)$().ready(function);
+        $().ready(function(){
+            console.log('abcd');
+        });
+        //3)$(function);
+        //该方式加载事件是对照第1)种的封装
+        $(function(){
+            console.log('fghi');
+        });
+    </script>
+</head>
+<body>
+    <h2>jquery加载事件实现</h2>
+</body>
+</html>
