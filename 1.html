@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-1.11.3.min.js"></script>
+    <script type="text/javascript">
+        //each()遍历方法
+        //1)遍历数组
+        //for 循环 for-in
+        //$.each(数组,function(k每个元素下标，v每个元素的值){});
+        var color=['gold','yellow','orange','blue'];
+        $.each(color,function(k,v){
+            //遍历的主体实现
+            console.log(k+"---"+v);
+            console.log(k+"---"+v);
+        });
+        //2)遍历对象(获得各个 成员)
+        var cat={name:'kitty',color:'white',climb:function(){console.log('会爬树')}};
+        $.each(cat,function(k,v){
+            console.log(k+-'---'+v);
+        });
+        window.onload=function(){
+            //3)遍历jquery对象
+            //$().each(function(k dom 对象下标，v dom对象){})
+            $('li').each(function(k,v){
+//                console.log(k);
+//               v.style.color="tomato";//dom对象进行样式设置
+//                console.log(v);
+                console.log(this);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h2>each遍历方法</h2>
+    <ul>
+        <li>石家庄</li>
+        <li>济南</li>
+        <li>郑州</li>
+        <li>西安</li>
+   </ul>
+</body>
+</html>
