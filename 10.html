@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+    <script type="text/javascript">
+        $.fn.hello=function(){
+            console.log("hello");
+        };
+        $.fn.extend({
+            faaa:function(){
+                console.log("faaa");
+            },
+            fbbb:function(){
+                console.log("fbbb");
+            }
+        });
+        $.weather=function(){
+            console.log("weather");
+        };
+        function f1(){
+            //$('h2').css('color','blue');
+            $('h2').hello();
+            $('h2').faaa();
+            $('h2').fbbb();
+            $.weather();
+        }
+    </script>
+</head>
+<body>
+    <h2>jquery插件开发使用</h2>
+    <input type="button" value="触发" onclick="f1()">
+</body>
+</html>

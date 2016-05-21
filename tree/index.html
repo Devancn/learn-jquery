@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../jquery-1.11.3.min.js"></script>
+    <script type="text/javascript">
+        var xmldom=null;//声明一个全局变量，用于存储第一次请求回来的xml信息
+        function  show_province(){
+            //1)ajax去服务器把xml地区信息请求回来
+            //2)从中赛选"省份"信息并显示
+            $.get('./ChinaArea.xml',function(msg){
+                xmldom=msg;
+                 //对服务器返回的xml信息进行处理
+                //console.log(msg);//object XAMLDocument
+                //我们需要从最大的是XAMLDocument节点里边获得province元素节点
+                //province 是XAMLDocument 的节点
+               //从父节点获得内部的子节点 find()方法
+                $(msg).find('province').each(function(k,v){
+                    //this分别依次代表province的dom对象
+                    //获得省份名称并显示给 下拉列表
+                    var nm=$(this).attr('province');
+                    var id=$(this).attr('provinceID');
+                    //给select框追加省份名称
+                    $('#province').append("<option value='"+id+"'>"+nm+"</option>");
+                });
+            },'xml');
+        }
+        $(function(){
+            show_province();
+        });
+        //根据选取的省份显示对应的地市
+        function show_city(){
+            //1)获得选取的省份的id信息
+            var pid=$('#province option:selected').val();
+            //console.log(pid);
+            //2)获得选取省份下的城市信息
+            //限制条件：City标签   和  本身 id的前两位与省份id的前两位一致
+            var two_pid=pid.substr(0,2);//只要前两位即可
+
+            $('#city').empty();//清除旧节点
+            $('#city').append('<option value="0">-请选择-</option>');
+            //遍历地市信息,并显示到页面上
+            $(xmldom).find('City[CityID^='+two_pid+']').each(function(){
+                //this 分别代表每个City节点的dom对象
+                var nm= $(this).attr('City');
+                var id=$(this).attr('CityID');
+                //把nm与option做结合显示到页面上
+                $('#city').append("<option value='"+id+"'>"+nm+"</option>");
+            });
+        }
+    </script>
+</head>
+<body>
+    <h2>地区三级联动</h2>
+    省份: <select id="province" onchange="show_city()">
+        <option value="0">-请选择-</option>
+    </select>
+    城市<select id="city">
+        <option value="0">-请选择-</option>
+    </select>
+    地区<select id="area">
+        <option value="0">-请选择-</option>
+    </select>
+</body>
+</html>

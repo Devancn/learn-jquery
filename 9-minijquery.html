@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .orange{
+            background: orange;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+        //迷你版jquery框架
+        (function (){
+            var jq=function(arg){
+                return new jq.fn.init(arg);
+            };
+            jq.fn={
+                init:function(arg){
+                    if(arg.nodeType){
+                        //dom对象选择器
+                        this.length=1;
+                        this[0]=arg;
+                       return false;
+                    }
+                    //实现各种选择器(#id tag dom 对象)
+                    if(arg.indexOf('#') !=-1){//判断arg参数里面#出现的下标位置,等于-1表示没有出现#号
+                        //#id选择器
+                        var flag=arg.substr(1,arg.length-1);//去除#号
+                        var elem=document.getElementById(flag);
+                        //dom对象与jquery对象做结合(dom对象是jquery数组部分)
+                        this.length=1;
+                        this[0]=elem;
+                    }else{
+                        //tag标签 选择器
+                       var elems=document.getElementsByTagName(arg);
+                        this.length=elems.length;
+                        //dom对面是 jquery对象的数组部分(两者做结合)
+                        for(var i=0;i<elems.length;++i){
+                            this[i]=elems[i];
+                        }
+                    }
+                },
+                css:function(k,v){
+                    //this代表调用该方法的当前对象[jquery对象]
+                    //每个方法里边都有遍历机制
+                    for (var i=0;i<this.length;++i){
+                        this[i].style[k]=v;
+                    }
+                },
+                attr:function(k,v){
+                    for (var i=0;i<this.length;++i){
+                        this[i].setAttribute(k,v)
+                    }
+                },
+                each:function(callback){
+                    //callback函数会为每个dom对象执行一次
+                    for(var i=0;i<this.length;++i){
+                        //函数执行
+                        //函数名称.call(函数内部this的指引,实参，实参...);
+                        callback.call(this[i],i,this[i])
+                    }
+                }
+            };
+            //设置使得init()构造函数实例化出来的对象也可以调用fn的成员
+            jq.fn.init.prototype=jq.fn;
+            window.$=jq;
+        })();
+    </script>
+    <script type="text/javascript">
+        function f1(){
+            //$(document.getElementById('apple'));
+            //$('li');
+            //console.log($('#apple'));
+            //设置操作方法
+           // $('#apple').css('color','red');
+            //$('li').css('backgroundColor','pink');
+            //$('#apple').attr('class','orange');
+           // $('li').attr('country','tree');
+            var clr=['red','blue','green','pink','gold','orange'];
+            $('li').each(function(k,v){
+                //k 代表dom对象的下标,v分别代表每个dom对象的 this 与 v的意思代表一致
+                //this.style.backgroundColor=clr[Math.floor(Math.random()*6)];
+                $(this).css('color',clr[Math.floor(Math.random()*6)]);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h2>迷你jquery框架开发</h2>
+    <div id="apple">Today is Wednesday</div>
+    <ul>
+        <li>刘备</li>
+        <li>张飞</li>
+        <li>关羽</li>
+    </ul>
+    <input type="button" value="触发" onclick="f1()">
+</body>
+</html>
