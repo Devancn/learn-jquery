@@ -9,8 +9,14 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="jquery-tablecolor.js"></script>
     <script type="text/javascript">
-
+        //页面加载完毕就使得table表格有隔行换色效果
+        $(function(){
+            //$('tr:first').css('backgroundColor','yellow');
+            //$('tr:gt(0):odd').css('backgroundColor','lightblue');
+            $('table').setTableColor('tomato','gold');
+        })
     </script>
 </head>
 <body>
